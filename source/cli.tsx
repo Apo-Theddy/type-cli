@@ -1,29 +1,18 @@
-#!/usr/bin/env node
 import React from 'react';
 import {render} from 'ink';
-import meow from 'meow';
-import App from './app.js';
+import {App,Test} from './app.js';
+import {db, getUserNames} from './services/db.js';
 
-const cli = meow(
-	`
-	Usage
-	  $ type-CLI
+render(<App />);
 
-	Options
-		--name  Your name
+const insert = db.prepare('INSERT INTO test_user (name) VALUES (?)');
+insert.run('Piero');
+insert.run('Juan');
+insert.run('Luis');
 
-	Examples
-	  $ type-CLI --name=Jane
-	  Hello, Jane
-`,
-	{
-		importMeta: import.meta,
-		flags: {
-			name: {
-				type: 'string',
-			},
-		},
-	},
-);
+//names ejecuta la funcion que hace la consulta a la base de datos y devuelve el array
+const names = getUserNames();
+//Impre el arrat con los nombre de la tabla
+console.log("Nombre: ", names);
 
-render(<App name={cli.flags.name} />);
+render(<Test />);
