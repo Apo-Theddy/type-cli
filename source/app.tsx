@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Box, Text} from 'ink';
 import { CLI } from './constants/cli.js';
 import {TextInput} from '@inkjs/ui';
-import {getUserNames} from './services/db.js';
+import {getUserNames} from './services/index.js';
 
 export function App() {
 	return (
