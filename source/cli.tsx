@@ -1,11 +1,12 @@
 import React from 'react';
 import {render} from 'ink';
 import {App,Test} from './app.js';
-import {db, getUserNames} from './services/db.js';
+import { getUserNames } from './services/index.js';
+import { getDB } from './services/index.js';
 
 render(<App />);
 
-const insert = db.prepare('INSERT INTO test_user (name) VALUES (?)');
+const insert = getDB().prepare('INSERT INTO test_user (name) VALUES (?)');
 insert.run('Piero');
 insert.run('Juan');
 insert.run('Luis');
