@@ -15,6 +15,13 @@ function initDB(): DatabaseType {
         )
     `).run()
 
+    database.prepare(`
+        CREATE TABLE IF NOT EXISTS task(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            description TEXT NOT NULL
+        )
+    `).run()
+    
     return database
 }
 

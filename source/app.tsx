@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {Box, Text} from 'ink';
 import { CLI } from './constants/cli.js';
 import {TextInput} from '@inkjs/ui';
-import {getUserNames} from './services/index.js';
+import {getUserNames, getTaskDescriptions} from './services/index.js';
+
 
 export function App() {
 	return (
@@ -20,7 +21,8 @@ export function Test(){
 	//Cuando el  componente se monte por primera vez trae los datos de la db
 	useEffect (() => {
 		const names = getUserNames();
-		setSugestions(names);
+		const description = getTaskDescriptions();
+		setSugestions([...names, ...description]);
 	}, [])
 	
 	return (
