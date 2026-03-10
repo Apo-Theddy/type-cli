@@ -1,36 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import {Box, Text} from 'ink';
-import { CLI } from './constants/cli.js';
-import {TextInput} from '@inkjs/ui';
-import {getUserNames, getTaskDescriptions} from './services/index.js';
+import React, { useState } from "react"
+import { Menu } from "./components/menu.js"
+import { ViewTasks } from "./components/view-task.js"
 
+// Rutas principales
+export type Route = "menu" | "view_tasks"
 
 export function App() {
-	return (
-		<Text>
-			Hello, <Text color="magenta" backgroundColor={"black"}>{CLI.nameTerminal!}</Text>
-		</Text>
-	);
-}
+  const [currentRoute, setCurrentRoute] = useState<Route>("menu")
 
-export function Test(){
-	const [value,setValue] = useState('');
-	//Como en la parte superior se crea una variable de estado y se usa useState para inicializarla con un string vacio
-	// y los <string[]>([] son para indicar que el tipo de dato va a almacenar un array de string
-	const [sugentions, setSugestions] = useState<string[]>([]);
-	//Cuando el  componente se monte por primera vez trae los datos de la db
-	useEffect (() => {
-		const names = getUserNames();
-		const description = getTaskDescriptions();
-		setSugestions([...names, ...description]);
-	}, [])
-	
-	return (
-		<Box flexDirection="column" gap={1}>
-			<TextInput placeholder="Start typing..." 
-			suggestions={sugentions} 
-			onChange={setValue} />
-			<Text>input value: "{value}"</Text>
-		</Box>
-	);
+  // Función para cambiar pantalla
+  function navigate(route: Route) {
+    setCurrentRoute(route)
+  }
+
+  // Mapa de rutas
+  const routes: Record<Route, React.ReactNode> = {
+    menu: <Menu onNavigate={navigate} />,
+    view_tasks: <ViewTasks/>,
+  }
+
+  return routes[currentRoute] ?? <Menu onNavigate={navigate} />
 }

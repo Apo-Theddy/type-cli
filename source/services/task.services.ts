@@ -1,8 +1,8 @@
-import {getDB} from './db.js';
+import {getDB} from '../db/db.js';
 
-export function getTaskDescriptions(): string[] {
-    const rows = getDB().prepare('SELECT description FROM task').all() as {
-        description: string;
+export function getTaskNames(): string[] {
+    const rows = getDB().prepare('SELECT name_task FROM task').all() as {
+        name_task: string;
     }[];
-    return rows.map(row => row.description);
+    return rows.map(row => row.name_task);
 }
