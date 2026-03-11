@@ -1,8 +1,20 @@
 import {getDB} from '../db/db.js';
+import { TaskQuery, NameQuery } from '../queris/tasks.queris.js';
 
-export function getTaskNames(): string[] {
-    const rows = getDB().prepare('SELECT name_task FROM task').all() as {
-        name_task: string;
-    }[];
-    return rows.map(row => row.name_task);
+const conexion = getDB();
+
+export interface Task {
+    id: string;
+    name_task: string;
+    description : string;
+    status : string;
+}
+
+export function getTask(): Task []{
+    return conexion.prepare(NameQuery.getname).all() as Task[]
+}
+
+export function getDescriptionTask(id: number): Task{
+    return conexion.prepare(TaskQuery.getdescription).get(id) as Task 
+    
 }

@@ -1,22 +1,38 @@
 import React, { useState } from "react"
-import { Menu } from "./components/menu.js"
-import { ViewTasks } from "./components/view-task.js"
+import { Menu } from "./view/MenuView.js"
+import { ViewTasks } from "./view/ViewTasks.js"
+import { DetailTasks } from "./view/DetailsTasks.js"
 
-// Rutas principales
-export type Route = "menu" | "view_tasks"
+export type Route = "menu" | "view_tasks" | "detail_tasks"
 
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<Route>("menu")
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null)
 
-  // Función para cambiar pantalla
   function navigate(route: Route) {
     setCurrentRoute(route)
   }
 
-  // Mapa de rutas
+  function openTaskDetail(id: number) {
+    setSelectedTaskId(id)
+    setCurrentRoute("detail_tasks")
+  }
+
   const routes: Record<Route, React.ReactNode> = {
     menu: <Menu onNavigate={navigate} />,
-    view_tasks: <ViewTasks/>,
+
+    view_tasks: (
+      <ViewTasks
+        onSelectTask={openTaskDetail}
+      />
+    ),
+
+    detail_tasks: (
+      <DetailTasks
+        taskId={selectedTaskId}
+        onNavigate={navigate}
+      />
+    )
   }
 
   return routes[currentRoute] ?? <Menu onNavigate={navigate} />

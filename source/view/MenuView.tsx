@@ -8,17 +8,21 @@ type Props = {
 }
 
 export function Menu({ onNavigate }: Props) {
-  const options = [
+
+  const menuOptions = [
     { label: "Ver tareas", value: "view_tasks" },
-    { label: "Crear tarea", value: "create_task" },
+    { label: "Crear tareas", value: "create_tasks" },
     { label: "Editar tareas", value: "edit_tasks" },
+    { label: "Eliminar tareas", value: "delete_tasks"},
     { label: "Salir", value: "menu" }
   ]
-
   return (
     <>
-      <Text>Selecciona una opción:</Text>
-      <Select options={options} onChange={(value) => onNavigate(value as Route)} />
+      <Text>Menu</Text>
+      <Select
+        options={menuOptions}
+        onChange={(value) => onNavigate(value as Route)}
+      />
     </>
   )
 }

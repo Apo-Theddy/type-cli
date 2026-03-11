@@ -37,6 +37,7 @@
 		"ink-testing-library": "^3.0.0",
 		"prettier": "^2.8.7",
 		"ts-node": "^10.9.1",
+		"ts-node-dev": "^2.0.0",
 		"typescript": "^5.0.3",
 		"xo": "^0.53.1"
 	},
