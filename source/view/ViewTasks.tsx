@@ -15,7 +15,7 @@ export function ViewTasks({ onSelectTask }: Props) {
     label: task.name_task,
     value: String(task.id)
   }))
-
+  
   return (
     <>
       <Text>Todas las tareas</Text>
