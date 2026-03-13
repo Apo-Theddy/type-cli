@@ -4,8 +4,9 @@ import { ViewTasks } from "./view/ViewTasks.js"
 import { DetailTasks } from "./view/DetailsTasks.js"
 import { CreateTasks } from "./view/CreateTasks.js"
 import { EditTasks } from "./view/EditTasks.js"
+import { DeleteTasks } from "./view/DeleteTasks.js"
 
-export type Route = "menu" | "view_tasks" | "detail_tasks" | "create_tasks" | "edit_tasks"
+export type Route = "menu" | "view_tasks" | "detail_tasks" | "create_tasks" | "edit_tasks" | "delete_tasks"
 
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<Route>("menu")
@@ -43,6 +44,9 @@ export function App() {
 
     edit_tasks: (
       <EditTasks taskId={selectedTaskId!} onNavigate={navigate} />
+    ),
+    delete_tasks: (
+      <DeleteTasks onNavigate={navigate} />
     )
 
   }
