@@ -20,7 +20,7 @@ const salir=[
 ]
 
 export function DetailTasks({ taskId, onNavigate }: Props) {
-  const tasks = getTaskById(taskId!)
+  const task = getTaskById(taskId!)
 
  function handleOption(value: string) {
   if (value === "edit_tasks") {
@@ -35,9 +35,9 @@ export function DetailTasks({ taskId, onNavigate }: Props) {
     <>
       <Text>Detalle de tarea</Text>
       <Text>ID seleccionado: {taskId}</Text>
-      <Text>Nombre: {tasks.name_task}</Text>
-      <Text>Descripcion: {tasks.description}</Text>
-      <Text>Status: {statusLabels[tasks.status]}</Text>
+      <Text>Nombre: {task.name_task}</Text>
+      <Text> Descripcion: {task.description}</Text>
+      <Text>Status: {statusLabels[task.status]}</Text>
       <Select options={salir} onChange = {handleOption}/>
     </>
   )
