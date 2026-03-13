@@ -9,8 +9,7 @@ export function initDB(): DatabaseType {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name_task TEXT NOT NULL,
             description TEXT NOT NULL,
-            status TEXT NOT NULL,
-            responsible TEXT NOT NULL
+            status TEXT NOT NULL
         )
     `).run()
     
