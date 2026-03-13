@@ -1,7 +1,8 @@
 import React from "react"
 import { Text } from "ink"
 import { Select } from "@inkjs/ui"
-import { getTask } from "../services/task.services.js"
+import { getTask} from "../services/task.services.js"
+import type { Task } from "../services/task.services.js"
 
 type Props = {
   onSelectTask: (id: number) => void
@@ -9,7 +10,7 @@ type Props = {
 
 export function ViewTasks({ onSelectTask }: Props) {
 
-  const tasks = getTask()
+  const tasks = getTask() as Task[]
 
   const options = tasks.map((task) => ({
     label: task.name_task,
