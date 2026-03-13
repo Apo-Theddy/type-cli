@@ -1,6 +1,7 @@
 export class TasksQuery {
-    public static getById = 'SELECT * FROM task WHERE id = ? LIMIT 10 offset 0'
-    public static getTasks = 'SELECT * FROM task LIMIT 10 offset 0'
+    public static getById = 'SELECT id, name_task, description, status FROM task WHERE id = ? LIMIT 10 offset 0'
+
+    public static getTasks = 'SELECT id, name_task FROM task LIMIT 10 offset 0'
 
 }
 
@@ -9,6 +10,5 @@ export class InsertTask {
 }
 
 export class UpdateTask {
-    public static updateTask =
-        "UPDATE task SET name_task = ?, description = ?, status = ? WHERE id = ?"
+    public static updateTask = "UPDATE task SET name_task = ?, description = ?, status = ? WHERE id = ?"
 }
