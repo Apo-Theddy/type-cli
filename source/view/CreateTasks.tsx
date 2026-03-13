@@ -4,6 +4,7 @@ import { Select } from "@inkjs/ui"
 import TextInput from "ink-text-input"
 import { createTasks } from "../services/task.services.js"
 import type { Route } from "../app.js"
+import { statusOption } from "../constants/statusOptions.js"
 
 type Props = {
   onNavigate: (route: Route) => void
@@ -22,11 +23,7 @@ export function CreateTasks({ onNavigate }: Props) {
     onNavigate("menu")
   }
 
-  const statusOptions = [
-        { label: "Pendiente", value: "pending" },
-        { label: "En progreso", value: "progress" },
-        { label: "Completado", value: "done" }
-    ]
+  const status = statusOption
 
   return (
     <Box flexDirection="column">
@@ -57,7 +54,7 @@ export function CreateTasks({ onNavigate }: Props) {
         <>
           <Text>Estado:</Text>
           <Select
-            options={statusOptions}
+            options={status}
             onChange={save}
           />
         </>

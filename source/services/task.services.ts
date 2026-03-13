@@ -1,5 +1,5 @@
 import {getDB} from '../db/db.js';
-import { TaskQuery, NameQuery, InsertTask } from '../queris/tasks.queris.js';
+import { TasksQuery, InsertTask, UpdateTask } from '../queris/tasks.queris.js';
 
 const conexion = getDB();
 
@@ -16,13 +16,28 @@ export interface NewTask{
     status : string;
 }
 
-export function getTask(id?: number): Task | Task[] {
-    if (id) {
-        return conexion.prepare(TaskQuery.getDescription).get(id) as Task
-    }
-    return conexion.prepare(NameQuery.getName).all() as Task[]
+export interface UpdateTaskData{
+    name_task: string;
+    description : string;
+    status : string;
+}
+
+export function getTaskById(id: number): Task {
+    return conexion
+        .prepare(TasksQuery.getById)
+        .get(id) as Task
+}
+
+export function getTasks(): Task[] {
+    return conexion
+        .prepare(TasksQuery.getTasks)
+        .all() as Task[]
 }
 
 export function createTasks(task: NewTask){
     return conexion.prepare(InsertTask.insertTasks).run(task.name_task, task.description, task.status)
+}
+
+export function updateTask(id: number, task: UpdateTaskData) {
+    return conexion.prepare(UpdateTask.updateTask).run(task.name_task, task.description, task.status, id)
 }
