@@ -12,7 +12,6 @@ export function Menu({ onNavigate }: Props) {
   const menuOptions = [
     { label: "Ver tareas", value: "view_tasks" },
     { label: "Crear tareas", value: "create_tasks" },
-    { label: "Editar tareas", value: "edit_tasks" },
     { label: "Eliminar tareas", value: "delete_tasks"},
     { label: "Salir", value: "menu" }
   ]
