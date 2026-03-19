@@ -1,5 +1,5 @@
 import {getDB} from '../db/db.js';
-import { TasksQuery, InsertTask, UpdateTask } from '../queris/tasks.queris.js';
+import { TasksQuery, InsertTask, UpdateTask, DeleteTask } from '../queries/tasks.queries.js';
 
 const conexion = getDB();
 
@@ -40,4 +40,8 @@ export function createTasks(task: NewTask){
 
 export function updateTask(id: number, task: UpdateTaskData) {
     return conexion.prepare(UpdateTask.updateTask).run(task.name_task, task.description, task.status, id)
+}
+
+export function deleteTask(id: number){
+    return conexion.prepare(DeleteTask.deleteTask).run(id)
 }

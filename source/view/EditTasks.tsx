@@ -47,7 +47,6 @@ export function EditTasks({ taskId, onNavigate }: Props) {
       description: task.description,
       status
     })
-
     onNavigate("view_tasks")
   }
 
