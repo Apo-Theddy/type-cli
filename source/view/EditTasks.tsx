@@ -25,8 +25,10 @@ export function EditTasks({ taskId, onNavigate }: Props) {
 
   function handleNameSubmit() {
     if (!task.name_task.trim()) {
-      setError("El nombre no puede estar vacío")
-      return
+      setTask({
+        ...task,
+        name_task: taskData.name_task
+      })
     }
     setError("")
     setField("description")
@@ -34,8 +36,10 @@ export function EditTasks({ taskId, onNavigate }: Props) {
 
   function handleDescriptionSubmit() {
     if (!task.description.trim()) {
-      setError("La descripción no puede estar vacía")
-      return
+      setTask({
+        ...task,
+        description: taskData.description
+      })
     }
     setError("")
     setField("status")
@@ -51,40 +55,73 @@ export function EditTasks({ taskId, onNavigate }: Props) {
   }
 
   return (
-    <Box flexDirection="column">
+    <Box
+      flexDirection="column"
+      borderStyle="round"
+      borderColor="magenta"
+      padding={1}
+      width={60}
+    >
 
-      {error && <Text color="red">{error}</Text>}
+      <Box justifyContent="center">
+        <Text bold color="magentaBright">
+          Editar tarea
+        </Text>
+      </Box>
 
-      {field === "name" && (
-        <>
-          <Text>Editar nombre</Text>
-          <TextInput
-            value={task.name_task}
-            placeholder={taskData.name_task}
-            onChange={(value) => setTask({ ...task, name_task: value })}
-            onSubmit={handleNameSubmit}
-          />
-        </>
+      <Box justifyContent="center">
+        <Text color="gray">
+          {field === "name"
+            ? "Actualizar nombre"
+            : field === "description"
+            ? "Actualizar descripción"
+            : "Actualizar estado"}
+        </Text>
+      </Box>
+
+      {error && (
+        <Box justifyContent="center" marginTop={1}>
+          <Text color="red">{error}</Text>
+        </Box>
       )}
 
-      {field === "description" && (
-        <>
-          <Text>Editar descripción</Text>
-          <TextInput
-            value={task.description}
-            placeholder={taskData.description}
-            onChange={(value) => setTask({ ...task, description: value })}
-            onSubmit={handleDescriptionSubmit}
-          />
-        </>
-      )}
+      <Box
+        marginTop={1}
+        borderStyle="single"
+        borderColor={error ? "red" : "gray"}
+        padding={1}
+        flexDirection="column"
+      >
 
-      {field === "status" && (
-        <>
-          <Text>Editar estado</Text>
+        {field === "name" && (
+          <>
+            <Text>Actual: {taskData.name_task}</Text>
+            <TextInput
+              value={task.name_task}
+              placeholder="Nuevo nombre..."
+              onChange={(value) => setTask({ ...task, name_task: value })}
+              onSubmit={handleNameSubmit}
+            />
+          </>
+        )}
+
+        {field === "description" && (
+          <>
+            <Text>Actual: {taskData.description}</Text>
+            <TextInput
+              value={task.description}
+              placeholder="Nueva descripción..."
+              onChange={(value) => setTask({ ...task, description: value })}
+              onSubmit={handleDescriptionSubmit}
+            />
+          </>
+        )}
+
+        {field === "status" && (
           <Select options={statusOption} onChange={save} />
-        </>
-      )}
+        )}
+
+      </Box>
 
     </Box>
   )
