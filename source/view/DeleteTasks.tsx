@@ -11,6 +11,7 @@ type Props = {
 export function DeleteTasks({ onNavigate }: Props) {
 
   const [taskId, setTaskId] = useState<number | null>(null)
+
   const options = !taskId
     ? [
         ...getTasks().map(task => ({
@@ -39,13 +40,36 @@ export function DeleteTasks({ onNavigate }: Props) {
   }
 
   return (
-    <Box flexDirection="column">
+    <Box
+      flexDirection="column"
+      borderStyle="round"
+      borderColor="magenta"
+      padding={1}
+      width={55}
+    >
 
-      <Text color={taskId ? "red" : undefined}>
-        {taskId ? "¿Confirmar eliminación?" : "Selecciona la tarea a eliminar"}
-      </Text>
+      <Box justifyContent="center">
+        <Text bold color="magentaBright">
+          Eliminar tarea
+        </Text>
+      </Box>
 
-      <Select options={options} onChange={handleSelect} />
+      <Box justifyContent="center">
+        <Text color={taskId ? "red" : "gray"}>
+          {taskId
+            ? "¿Confirmar eliminación?"
+            : "Selecciona la tarea"}
+        </Text>
+      </Box>
+
+      <Box
+        marginTop={1}
+        borderStyle="single"
+        borderColor={taskId ? "red" : "gray"}
+        padding={1}
+      >
+        <Select options={options} onChange={handleSelect} />
+      </Box>
 
     </Box>
   )

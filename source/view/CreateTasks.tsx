@@ -13,52 +13,68 @@ type Props = {
 export function CreateTasks({ onNavigate }: Props) {
 
   const [field, setField] = useState<"name" | "description" | "status">("name")
+
   const [task, setTask] = useState({
     name_task: "",
     description: ""
   })
 
   function save(status: string) {
+    if (!task.name_task.trim() || !task.description.trim()) return
     createTasks({ ...task, status })
     onNavigate("menu")
   }
 
-  const status = statusOption
+  const labels = {
+    name: "Nombre de la tarea",
+    description: "Descripción",
+    status: "Estado"
+  }
 
   return (
-    <Box flexDirection="column">
+    <Box
+      flexDirection="column"
+      borderStyle="round"
+      borderColor="magenta"
+      padding={1}
+      width={50}
+    >
 
-      {field === "name" && (
-        <>
-          <Text>Nombre de la tarea:</Text>
+      <Box justifyContent="center">
+        <Text bold color="magentaBright">
+          Crear tarea
+        </Text>
+      </Box>
+
+      <Box justifyContent="center">
+        <Text color="gray">
+          {labels[field]}
+        </Text>
+      </Box>
+
+      <Box marginTop={1}>
+
+        {field !== "status" ? (
           <TextInput
-            value={task.name_task}
-            onChange={(value) => setTask({ ...task, name_task: value })}
-            onSubmit={() => setField("description")}
+            value={task[field === "name" ? "name_task" : "description"]}
+            onChange={(value) =>
+              setTask({
+                ...task,
+                [field === "name" ? "name_task" : "description"]: value
+              })
+            }
+            onSubmit={() =>
+              setField(field === "name" ? "description" : "status")
+            }
           />
-        </>
-      )}
-
-      {field === "description" && (
-        <>
-          <Text>Descripción:</Text>
-          <TextInput
-            value={task.description}
-            onChange={(value) => setTask({ ...task, description: value })}
-            onSubmit={() => setField("status")}
-          />
-        </>
-      )}
-
-      {field === "status" && (
-        <>
-          <Text>Estado:</Text>
+        ) : (
           <Select
-            options={status}
+            options={statusOption}
             onChange={save}
           />
-        </>
-      )}
+        )}
+
+      </Box>
 
     </Box>
   )
